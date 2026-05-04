@@ -20,29 +20,42 @@ python -c "import tkinter; print('tkinter OK')"
 
 ## Cómo correr la tarea
 
-### macOS (Anaconda — recomendado)
+### 1. Clonar el repositorio
 
 ```bash
-cd /ruta/a/la/carpeta
-/Users/sabrina/anaconda3/bin/python Tarea_prueba.py
+git clone https://github.com/SabrinaArroyo/Representaci-n-mental-.git
+cd Representaci-n-mental-
 ```
 
-O si tienes el alias configurado (`python` apunta a Anaconda):
+### 2. Ejecutar
+
+**Con Anaconda / Miniconda (recomendado en macOS y Windows):**
 
 ```bash
-cd /ruta/a/la/carpeta
+conda activate base
 python Tarea_prueba.py
 ```
 
-> ⚠️ **No uses `/usr/bin/python3`** en macOS — el Python del sistema puede dar el error  
-> `macOS 13 (1307) or later required`. Usa siempre el Python de Anaconda.
-
-### Configurar el alias (una sola vez)
+**Con Python estándar (Windows / Linux):**
 
 ```bash
-echo 'alias python="/Users/sabrina/anaconda3/bin/python"' >> ~/.zshrc
-source ~/.zshrc
+python Tarea_prueba.py
+# o bien:
+python3 Tarea_prueba.py
 ```
+
+**Con un entorno virtual:**
+
+```bash
+python -m venv .venv
+source .venv/bin/activate        # macOS / Linux
+.venv\Scripts\activate            # Windows
+python Tarea_prueba.py
+```
+
+> ⚠️ **macOS únicamente:** el Python del sistema (`/usr/bin/python3`) puede lanzar el error  
+> `macOS 13 (1307) or later required` y cerrarse al abrir la ventana.  
+> Usa siempre el Python de Anaconda (`conda activate base`) o un entorno virtual.
 
 ---
 

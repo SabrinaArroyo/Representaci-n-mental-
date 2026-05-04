@@ -881,9 +881,11 @@ class ExperimentoMetaforas:
     # ── Guardado CSV ──────────────────────────────────────────────────
 
     def _guardar(self):
-        os.makedirs("data", exist_ok=True)
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        data_dir = os.path.join(base_dir, "data")
+        os.makedirs(data_dir, exist_ok=True)
         ts  = datetime.now().strftime("%Y%m%d_%H%M%S")
-        fn  = f"data/{self.participante_id}_Metaforas_Espaciales_{ts}.csv"
+        fn  = os.path.join(data_dir, f"{self.participante_id}_Metaforas_Espaciales_{ts}.csv")
         cols = [
             "participante", "num_ensayo", "tipo_metafora", "texto_metafora",
             "relacion", "sujeto", "objeto", "palabras_presentadas",
