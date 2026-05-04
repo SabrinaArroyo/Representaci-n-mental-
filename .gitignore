@@ -1,0 +1,11 @@
+# Datos de participantes
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.DS_Store
+
+# PsychoPy
+*.psydat
