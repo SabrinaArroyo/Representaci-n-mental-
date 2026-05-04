@@ -56,7 +56,7 @@ python Tarea_prueba.py
 
 ```bash
 # Crear entorno virtual (solo la primera vez)
-python -m venv .venv
+python -m venv .mivirtualenv
 
 # Activar
 source .venv/bin/activate        # macOS / Linux
