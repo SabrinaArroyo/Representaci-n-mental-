@@ -59,7 +59,7 @@ python Tarea_prueba.py
 python -m venv .mivirtualenv
 
 # Activar
-source .venv/bin/activate        # macOS / Linux
+source .mivirtualenv/bin/activate        # macOS / Linux
 .venv\Scripts\activate            # Windows
 
 # Verificar tkinter y correr
