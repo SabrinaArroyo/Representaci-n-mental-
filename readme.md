@@ -20,7 +20,6 @@ Si tkinter no está instalado:
 | Sistema | Comando |
 |---|---|
 | Ubuntu / Debian | `sudo apt-get install python3-tk` |
-| Fedora / RHEL | `sudo dnf install python3-tkinter` |
 | macOS (Homebrew) | `brew install python-tk@3.11` |
 | Windows | incluido al instalar desde [python.org](https://python.org) |
 | Anaconda | `conda install tk` |
