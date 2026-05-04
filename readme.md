@@ -171,17 +171,3 @@ data/<participante_id>_Metaforas_Espaciales_<YYYYMMDD_HHMMSS>.csv
 | `fecha_hora` | Marca de tiempo del ensayo |
 
 ---
-
-## Parámetros configurables
-
-En la sección `PARÁMETROS CONFIGURABLES` de `Tarea_prueba.py`:
-
-```python
-FIXATION_DURATION_MS    = 500    # duración cruz de fijación (ms)
-READING_TIME_MS         = 4000   # tiempo máximo de lectura (ms)
-ITI_MS                  = 1000   # intervalo entre ensayos (ms)
-PRACTICE_PASS_THRESHOLD = 0.75   # mínimo para pasar la práctica (75%)
-PILOT_MODE              = True   # True = 8+8 ensayos; False = tarea completa
-PILOT_TRIALS            = 8      # ensayos por tipo en modo piloto
-FULL_TASK_MODE          = False  # True = usa las 48 metáforas completas
-```
