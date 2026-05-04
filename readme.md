@@ -6,19 +6,28 @@ Tarea experimental de neurociencia cognitiva en la que los participantes leen me
 
 ## Requisitos
 
-- **Python 3.8+** (se recomienda Anaconda)
-- **tkinter** — incluido en la instalación estándar de Python / Anaconda
-- No se requieren paquetes externos
+- **Python 3.8+**
+- **tkinter** (incluido en Python estándar, Anaconda y la mayoría de distribuciones)
+- **Sin dependencias externas** — no se instala nada con pip
 
-### Verificar que tkinter está disponible
-
+Verifica antes de empezar:
 ```bash
 python -c "import tkinter; print('tkinter OK')"
 ```
 
+Si tkinter no está instalado:
+
+| Sistema | Comando |
+|---|---|
+| Ubuntu / Debian | `sudo apt-get install python3-tk` |
+| Fedora / RHEL | `sudo dnf install python3-tkinter` |
+| macOS (Homebrew) | `brew install python-tk@3.11` |
+| Windows | incluido al instalar desde [python.org](https://python.org) |
+| Anaconda | `conda install tk` |
+
 ---
 
-## Cómo correr la tarea
+## Instalación y ejecución
 
 ### 1. Clonar el repositorio
 
@@ -27,35 +36,55 @@ git clone https://github.com/SabrinaArroyo/Representaci-n-mental-.git
 cd Representaci-n-mental-
 ```
 
-### 2. Ejecutar
+---
 
-**Con Anaconda / Miniconda (recomendado en macOS y Windows):**
+### Opción A — Con Anaconda / Miniconda
 
 ```bash
 conda activate base
 python Tarea_prueba.py
 ```
 
-**Con Python estándar (Windows / Linux):**
-
+Si tkinter no estuviera disponible en el entorno:
 ```bash
+conda install tk
 python Tarea_prueba.py
-# o bien:
-python3 Tarea_prueba.py
 ```
 
-**Con un entorno virtual:**
+---
+
+### Opción B — Sin conda (Python estándar + entorno virtual)
 
 ```bash
+# Crear entorno virtual (solo la primera vez)
 python -m venv .venv
+
+# Activar
 source .venv/bin/activate        # macOS / Linux
 .venv\Scripts\activate            # Windows
+
+# Verificar tkinter y correr
+python -c "import tkinter; print('tkinter OK')"
 python Tarea_prueba.py
+```
+
+> **Nota:** no hay paquetes que instalar con `pip install -r requirements.txt`  
+> porque el proyecto usa únicamente la biblioteca estándar.  
+> El archivo `requirements.txt` documenta las dependencias y cómo instalar tkinter por sistema.
+
+---
+
+### Opción C — Python directamente (sin entorno virtual)
+
+```bash
+python Tarea_prueba.py
+# o en sistemas donde python apunta a Python 2:
+python3 Tarea_prueba.py
 ```
 
 > ⚠️ **macOS únicamente:** el Python del sistema (`/usr/bin/python3`) puede lanzar el error  
 > `macOS 13 (1307) or later required` y cerrarse al abrir la ventana.  
-> Usa siempre el Python de Anaconda (`conda activate base`) o un entorno virtual.
+> Usa Anaconda (Opción A) o un entorno virtual (Opción B) en su lugar.
 
 ---
 

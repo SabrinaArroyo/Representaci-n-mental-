@@ -1,0 +1,19 @@
+# requirements.txt – Tarea de Representación Mental: Metáforas Espaciales
+#
+# Este proyecto usa ÚNICAMENTE la biblioteca estándar de Python (Python >= 3.8).
+# No hay paquetes externos que instalar con pip.
+#
+# Dependencias (todas incluidas en Python):
+#   tkinter    – interfaz gráfica y drag-and-drop
+#   csv        – guardado de resultados
+#   os, random, time, datetime, itertools – utilitarios
+#
+# ── Instalación de tkinter si no está disponible ──────────────────────────────
+#   Ubuntu / Debian:   sudo apt-get install python3-tk
+#   Fedora / RHEL:     sudo dnf install python3-tkinter
+#   macOS (Homebrew):  brew install python-tk@3.11   (ajusta la versión)
+#   Windows:           incluido al instalar Python desde https://python.org
+#   Anaconda:          conda install tk
+#
+# Puedes verificar la disponibilidad con:
+#   python -c "import tkinter; print('tkinter OK')"
