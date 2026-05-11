@@ -34,12 +34,12 @@ SUPUESTOS DOCUMENTADOS:
      portable. Para precisión de ms en TR se recomienda migrar a PsychoPy.
 """
 
-import tkinter as tk
+import tkinter as tk #ventanas y botones 
 import csv
-import os
-import random
+import os # crea carpetas 
+import random # para mezclar los ensayos
 import time
-from datetime import datetime
+from datetime import datetime #fecha y hora 
 from itertools import permutations
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -144,7 +144,7 @@ def configuraciones_indeterminada():
     return _pares_distintos()
 
 # Mapa de nombre_relacion → función generadora
-RELACION_A_CONFIGURACIONES = {
+RELACION_A_CONFIGURACIONES = { #mapea cada relación a su función de configuraciones válidas
     "arriba":              configuraciones_arriba,
     "sobre":               configuraciones_sobre,
     "encima":              configuraciones_arriba,
@@ -173,7 +173,7 @@ def obtener_configuraciones_validas(relacion: str):
 # PARÁMETROS CONFIGURABLES
 # ═══════════════════════════════════════════════════════════════════════
 FIXATION_DURATION_MS    = 500   # duración cruz de fijación (ms)
-READING_TIME_MS         = 4000  # tiempo máximo de lectura (ms)
+READING_TIME_MS         = 2500  # tiempo máximo de lectura (ms)
 ITI_MS                  = 1000  # intervalo entre ensayos (ms)
 PRACTICE_PASS_THRESHOLD = 0.75  # mínimo para pasar la práctica
 WINDOW_WIDTH            = 1100
@@ -186,7 +186,7 @@ TEXT_COLOR              = "#ffffff"
 # PILOT_MODE = True  → 3 determinadas + 3 indeterminadas (PILOT_TRIALS cada tipo)
 # PILOT_MODE = False → tarea completa (FULL_TASK_MODE)
 PILOT_MODE      = True
-PILOT_TRIALS    = 8      # ensayos POR TIPO en modo piloto (8 det + 8 indet = 16 total)
+PILOT_TRIALS    = 16     # ensayos POR TIPO (16 det + 16 indet = 32 total)
 FULL_TASK_MODE  = False
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -210,10 +210,6 @@ METAFORAS_DETERMINADAS = [
      "tipo": "determinada", "sujeto": "Lámpara", "objeto": "Libro",
      "relacion": "arriba", "palabras_extra": []},
 
-    {"texto": "El reloj se posa debajo de la silla silenciosa",
-     "tipo": "determinada", "sujeto": "Reloj", "objeto": "Silla",
-     "relacion": "abajo", "palabras_extra": []},
-
     {"texto": "La taza permanece a la izquierda del cuaderno abierto",
      "tipo": "determinada", "sujeto": "Taza", "objeto": "Cuaderno",
      "relacion": "izquierda", "palabras_extra": []},
@@ -221,14 +217,6 @@ METAFORAS_DETERMINADAS = [
     {"texto": "El espejo vive a la derecha del jarrón antiguo",
      "tipo": "determinada", "sujeto": "Espejo", "objeto": "Jarrón",
      "relacion": "derecha", "palabras_extra": []},
-
-    {"texto": "La pluma flota sobre el vaso en calma ligera",
-     "tipo": "determinada", "sujeto": "Pluma", "objeto": "Vaso",
-     "relacion": "sobre", "palabras_extra": []},
-
-    {"texto": "El cuadro descansa bajo la mesa en sombra leve",
-     "tipo": "determinada", "sujeto": "Cuadro", "objeto": "Mesa",
-     "relacion": "bajo", "palabras_extra": []},
 
     {"texto": "La botella duerme a la izquierda del plato limpio",
      "tipo": "determinada", "sujeto": "Botella", "objeto": "Plato",
@@ -250,19 +238,7 @@ METAFORAS_DETERMINADAS = [
      "tipo": "determinada", "sujeto": "Silla", "objeto": "Espejo",
      "relacion": "derecha", "palabras_extra": []},
 
-    {"texto": "La lámpara inclina su luz hacia el costado del libro",
-     "tipo": "determinada", "sujeto": "Lámpara", "objeto": "Libro",
-     "relacion": "izquierda", "palabras_extra": []},
-
     # ── Relación inferida por preposición dominante (SUPUESTO) ────────
-    {"texto": "La luna está arriba del mar tranquilo y oscuro",
-     "tipo": "determinada", "sujeto": "Luna", "objeto": "Mar",
-     "relacion": "arriba", "palabras_extra": []},
-
-    {"texto": "El sol brilla sobre la montaña firme y silenciosa",
-     "tipo": "determinada", "sujeto": "Sol", "objeto": "Montaña",
-     "relacion": "sobre", "palabras_extra": []},
-
     {"texto": "La raíz se esconde bajo la tierra húmeda fértil",
      "tipo": "determinada", "sujeto": "Raíz", "objeto": "Tierra",
      "relacion": "bajo", "palabras_extra": []},
@@ -283,10 +259,6 @@ METAFORAS_DETERMINADAS = [
      "tipo": "determinada", "sujeto": "Llave", "objeto": "Candado",
      "relacion": "dentro", "palabras_extra": []},
 
-    {"texto": "La columna sostiene bajo el arco antiguo del templo",
-     "tipo": "determinada", "sujeto": "Columna", "objeto": "Arco",
-     "relacion": "bajo", "palabras_extra": []},
-
     {"texto": "El mapa descansa sobre la mesa amplia ordenada",
      "tipo": "determinada", "sujeto": "Mapa", "objeto": "Mesa",
      "relacion": "sobre", "palabras_extra": []},
@@ -295,36 +267,16 @@ METAFORAS_DETERMINADAS = [
      "tipo": "determinada", "sujeto": "Cabeza", "objeto": "Hombros",
      "relacion": "sobre", "palabras_extra": []},
 
-    {"texto": "El pilar sostiene bajo el arco sólido de piedra",
-     "tipo": "determinada", "sujeto": "Pilar", "objeto": "Arco",
-     "relacion": "bajo", "palabras_extra": []},
-
     {"texto": "La nube flota arriba del valle verde iluminado",
      "tipo": "determinada", "sujeto": "Nube", "objeto": "Valle",
      "relacion": "arriba", "palabras_extra": []},
-]  # 24 determinadas
+]  # 18 determinadas
 
 METAFORAS_INDETERMINADAS = [
     # ── Relación: diagonal_opuesta (vigilancia/observación desde esquina) ──
-    {"texto": "La lámpara vigila al libro desde una esquina callada",
-     "tipo": "indeterminada", "sujeto": "Lámpara", "objeto": "Libro",
-     "relacion": "diagonal_opuesta", "palabras_extra": ["Esquina", "Silencio"]},
-
-    {"texto": "El reloj observa la silla desde un rincón distante",
-     "tipo": "indeterminada", "sujeto": "Reloj", "objeto": "Silla",
-     "relacion": "diagonal_o_lateral", "palabras_extra": ["Rincón", "Distancia"]},
-
-    {"texto": "El espejo sigue al jarrón desde una esquina opuesta",
-     "tipo": "indeterminada", "sujeto": "Espejo", "objeto": "Jarrón",
-     "relacion": "diagonal_opuesta", "palabras_extra": ["Esquina", "Opuesto"]},
-
     {"texto": "El foco espía al cuaderno desde un rincón silencioso",
      "tipo": "indeterminada", "sujeto": "Foco", "objeto": "Cuaderno",
      "relacion": "diagonal_o_lateral", "palabras_extra": ["Rincón", "Silencio"]},
-
-    {"texto": "La mochila observa la lámpara desde un borde lejano",
-     "tipo": "indeterminada", "sujeto": "Mochila", "objeto": "Lámpara",
-     "relacion": "diagonal_o_lateral", "palabras_extra": ["Borde", "Lejanía"]},
 
     {"texto": "El reloj persigue la taza desde una esquina incierta",
      "tipo": "indeterminada", "sujeto": "Reloj", "objeto": "Taza",
@@ -343,14 +295,6 @@ METAFORAS_INDETERMINADAS = [
      "relacion": "diagonal_o_lateral", "palabras_extra": ["Rincón", "Lejanía"]},
 
     # ── Relación: lateral_superior (frente a frente, misma fila) ──────
-    {"texto": "La taza acompaña al cuaderno desde un borde tranquilo",
-     "tipo": "indeterminada", "sujeto": "Taza", "objeto": "Cuaderno",
-     "relacion": "diagonal_o_lateral", "palabras_extra": ["Borde", "Calma"]},
-
-    {"texto": "La pluma descansa frente al vaso en silencio leve",
-     "tipo": "indeterminada", "sujeto": "Pluma", "objeto": "Vaso",
-     "relacion": "lateral_superior", "palabras_extra": ["Frente", "Silencio"]},
-
     {"texto": "La libreta descansa frente al teléfono en calma leve",
      "tipo": "indeterminada", "sujeto": "Libreta", "objeto": "Teléfono",
      "relacion": "lateral_superior", "palabras_extra": ["Frente", "Calma"]},
@@ -360,15 +304,7 @@ METAFORAS_INDETERMINADAS = [
      "tipo": "indeterminada", "sujeto": "Teléfono", "objeto": "Lápiz",
      "relacion": "diagonal_o_lateral", "palabras_extra": ["Zona", "Difuso"]},
 
-    {"texto": "El vaso acompaña al plato desde un lado tranquilo",
-     "tipo": "indeterminada", "sujeto": "Vaso", "objeto": "Plato",
-     "relacion": "diagonal_o_lateral", "palabras_extra": ["Lado", "Calma"]},
-
     # ── Relación: indeterminada pura (abstractas/abiertas) ────────────
-    {"texto": "La vela ilumina al reloj desde un sitio indefinido",
-     "tipo": "indeterminada", "sujeto": "Vela", "objeto": "Reloj",
-     "relacion": "indeterminada", "palabras_extra": ["Luz", "Indefinido"]},
-
     {"texto": "El libro encuentra la taza desde un rincón incierto",
      "tipo": "indeterminada", "sujeto": "Libro", "objeto": "Taza",
      "relacion": "indeterminada", "palabras_extra": ["Rincón", "Incierto"]},
@@ -404,7 +340,7 @@ METAFORAS_INDETERMINADAS = [
     {"texto": "La campana persigue al pez desde una esquina apagada",
      "tipo": "indeterminada", "sujeto": "Campana", "objeto": "Pez",
      "relacion": "indeterminada", "palabras_extra": ["Esquina", "Silencio"]},
-]  # 24 indeterminadas
+]  # 18 indeterminadas
 
 # Práctica: 2 determinadas + 2 indeterminadas (sin literales)
 PRACTICA_TRIALS = [
@@ -416,32 +352,15 @@ PRACTICA_TRIALS = [
      "tipo": "practica_determinada", "sujeto": "Sol", "objeto": "Montaña",
      "relacion": "sobre", "palabras_extra": []},
 
-    {"texto": "La lámpara vigila al libro desde una esquina callada",
-     "tipo": "practica_indeterminada", "sujeto": "Lámpara", "objeto": "Libro",
-     "relacion": "diagonal_opuesta", "palabras_extra": []},
+    {"texto": "La vela ilumina al reloj desde un sitio indefinido",
+     "tipo": "practica_indeterminada", "sujeto": "Vela", "objeto": "Reloj",
+     "relacion": "indeterminada", "palabras_extra": []},
 
     {"texto": "El reloj observa la silla desde un rincón distante",
      "tipo": "practica_indeterminada", "sujeto": "Reloj", "objeto": "Silla",
      "relacion": "diagonal_o_lateral", "palabras_extra": []},
 ]
 
-DISTRACTORES = [
-    {"texto": "El cuadrado azul está encima del círculo rojo",
-     "tipo": "distractor", "sujeto": "Cuadrado", "objeto": "Círculo",
-     "relacion": "encima", "palabras_extra": []},
-
-    {"texto": "La silla de madera está a la izquierda de la puerta",
-     "tipo": "distractor", "sujeto": "Silla", "objeto": "Puerta",
-     "relacion": "izquierda", "palabras_extra": []},
-
-    {"texto": "El vaso de agua descansa sobre el plato blanco",
-     "tipo": "distractor", "sujeto": "Vaso", "objeto": "Plato",
-     "relacion": "sobre", "palabras_extra": []},
-
-    {"texto": "El libro azul está debajo del cuaderno verde",
-     "tipo": "distractor", "sujeto": "Libro", "objeto": "Cuaderno",
-     "relacion": "debajo", "palabras_extra": []},
-]
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -490,7 +409,7 @@ def evaluar_respuesta(trial, resp_participante):
 # CLASE PRINCIPAL
 # ═══════════════════════════════════════════════════════════════════════
 
-class ExperimentoMetaforas:
+class ExperimentoMetaforas: # clase principal que maneja la interfaz y la lógica del experimento
 
     def __init__(self):
         self.root = tk.Tk()
@@ -500,6 +419,8 @@ class ExperimentoMetaforas:
         self.root.resizable(False, False)
 
         self.participante_id    = "001"
+        self.edad               = ""
+        self.sexo               = ""
         self.resultados         = []
         self.num_ensayo_global  = 0
 
@@ -531,28 +452,60 @@ class ExperimentoMetaforas:
         self.root.unbind("<space>")
 
         self.lbl("Tarea de Representación Mental",
-                 ("Helvetica", 22, "bold"), color="#f0e68c", rely=0.28)
+                 ("Helvetica", 22, "bold"), color="#f0e68c", rely=0.15)
         self.lbl("Metáforas Espaciales",
-                 ("Helvetica", 15), color="#aaaaaa", rely=0.36)
-        self.lbl("ID del participante:", ("Helvetica", 14), rely=0.48)
+                 ("Helvetica", 15), color="#aaaaaa", rely=0.22)
 
-        var = tk.StringVar(value="001")
-        entry = tk.Entry(self.frame, textvariable=var, font=("Helvetica", 16),
-                         width=12, justify="center", bg="#16213e", fg=TEXT_COLOR,
-                         insertbackground=TEXT_COLOR, relief="solid", bd=1)
-        entry.place(relx=0.5, rely=0.56, anchor="center")
-        entry.focus_set()
+        # ── ID ────────────────────────────────────────────────────────
+        self.lbl("ID del participante:", ("Helvetica", 13), rely=0.32)
+        var_id = tk.StringVar(value="001")
+        entry_id = tk.Entry(self.frame, textvariable=var_id, font=("Helvetica", 15),
+                            width=12, justify="center", bg="#16213e", fg=TEXT_COLOR,
+                            insertbackground=TEXT_COLOR, relief="solid", bd=1)
+        entry_id.place(relx=0.5, rely=0.39, anchor="center")
+        entry_id.focus_set()
+
+        # ── Edad ──────────────────────────────────────────────────────
+        self.lbl("Edad:", ("Helvetica", 13), rely=0.48)
+        var_edad = tk.StringVar()
+        entry_edad = tk.Entry(self.frame, textvariable=var_edad, font=("Helvetica", 15),
+                              width=6, justify="center", bg="#16213e", fg=TEXT_COLOR,
+                              insertbackground=TEXT_COLOR, relief="solid", bd=1)
+        entry_edad.place(relx=0.5, rely=0.55, anchor="center")
+
+        # ── Sexo ──────────────────────────────────────────────────────
+        self.lbl("Sexo:", ("Helvetica", 13), rely=0.63)
+        var_sexo = tk.StringVar(value="Femenino")
+        frame_sexo = tk.Frame(self.frame, bg=BG_COLOR)
+        frame_sexo.place(relx=0.5, rely=0.70, anchor="center")
+        for opcion in ("Femenino", "Masculino", "Otro", "Prefiero no decir"):
+            tk.Radiobutton(frame_sexo, text=opcion, variable=var_sexo, value=opcion,
+                           font=("Helvetica", 12), fg=TEXT_COLOR, bg=BG_COLOR,
+                           selectcolor="#0f3460", activebackground=BG_COLOR,
+                           activeforeground=TEXT_COLOR).pack(side="left", padx=8)
+
+        # ── Botón ─────────────────────────────────────────────────────
+        msg_error = tk.Label(self.frame, text="", font=("Helvetica", 11),
+                             fg="#e74c3c", bg=BG_COLOR)
+        msg_error.place(relx=0.5, rely=0.80, anchor="center")
 
         def iniciar(event=None):
-            self.participante_id = var.get().strip() or "001"
+            edad_val = var_edad.get().strip()
+            if not edad_val.isdigit():
+                msg_error.config(text="Por favor ingresa una edad válida (número).")
+                return
+            self.participante_id = var_id.get().strip() or "001"
+            self.edad = edad_val
+            self.sexo = var_sexo.get()
             self.pantalla_bienvenida()
 
         tk.Button(self.frame, text="Comenzar →",
                   font=("Helvetica", 14, "bold"),
                   bg="#f39c12", fg="#1a1a2e", relief="flat",
                   padx=20, pady=8, command=iniciar
-                  ).place(relx=0.5, rely=0.67, anchor="center")
-        entry.bind("<Return>", iniciar)
+                  ).place(relx=0.5, rely=0.88, anchor="center")
+        entry_id.bind("<Return>", lambda e: entry_edad.focus_set())
+        entry_edad.bind("<Return>", iniciar)
 
     # ── Bienvenida ────────────────────────────────────────────────────
 
@@ -605,8 +558,7 @@ class ExperimentoMetaforas:
             self.root.unbind("<space>")
             callback(time.time() - inicio)
 
-        tid = self.root.after(READING_TIME_MS, avanzar)
-        self.root.bind("<space>", lambda e: (self.root.after_cancel(tid), avanzar()))
+        self.root.bind("<space>", lambda e: avanzar())
 
     # ── Retroalimentación (solo práctica) ─────────────────────────────
 
@@ -663,12 +615,6 @@ class ExperimentoMetaforas:
                       bg=BG_COLOR, highlightthickness=0)
         c.place(x=0, y=0)
 
-        # Texto metáfora
-        c.create_text(WINDOW_WIDTH // 2, 72,
-                      text=trial["texto"],
-                      font=("Helvetica", 17, "italic"),
-                      fill="#f0e68c", width=880, justify="center")
-
         # Cuadrícula
         c.create_rectangle(GRID_X, GRID_Y,
                            GRID_X + GRID_SIZE, GRID_Y + GRID_SIZE,
@@ -722,6 +668,8 @@ class ExperimentoMetaforas:
 
             resultado = {
                 "participante":             self.participante_id,
+                "edad":                     self.edad,
+                "sexo":                     self.sexo,
                 "tipo_metafora":            trial["tipo"],
                 "texto_metafora":           trial["texto"],
                 "relacion":                 trial["relacion"],
@@ -759,18 +707,18 @@ class ExperimentoMetaforas:
 
     # ── Drag-and-drop ─────────────────────────────────────────────────
 
-    def _drag_start(self, event, w):
+    def _drag_start(self, event, w): # inicia el arrastre de una palabra
         self._drag_item     = w
         self._drag_offset_x = event.x
         self._drag_offset_y = event.y
         w.lift()
 
-    def _drag_move(self, event, w):
+    def _drag_move(self, event, w): # mueve la palabra arrastrada siguiendo el cursor
         if self._drag_item is w:
             w.place(x=w.winfo_x() + event.x - self._drag_offset_x,
                     y=w.winfo_y() + event.y - self._drag_offset_y)
 
-    def _drag_drop(self, event, w, qb, wp):
+    def _drag_drop(self, event, w, qb, wp): # suelta la palabra y verifica si está dentro de algún cuadrante
         if self._drag_item is not w:
             return
         cx = w.winfo_x() + w.winfo_width()  // 2
@@ -834,15 +782,17 @@ class ExperimentoMetaforas:
 
     def iniciar_experimento(self):
         self.root.unbind("<space>")
+        # Excluir metáforas ya vistas en la práctica para que no se repitan
+        textos_practica = {t["texto"] for t in PRACTICA_TRIALS}
+        det_pool   = [t for t in METAFORAS_DETERMINADAS   if t["texto"] not in textos_practica]
+        indet_pool = [t for t in METAFORAS_INDETERMINADAS if t["texto"] not in textos_practica]
         if PILOT_MODE and not FULL_TASK_MODE:
-            det   = random.sample(METAFORAS_DETERMINADAS,   PILOT_TRIALS)
-            indet = random.sample(METAFORAS_INDETERMINADAS, PILOT_TRIALS)
+            det   = random.sample(det_pool,   min(PILOT_TRIALS, len(det_pool)))
+            indet = random.sample(indet_pool, min(PILOT_TRIALS, len(indet_pool)))
             self._exp_trials = det + indet
             random.shuffle(self._exp_trials)
         else:
-            self._exp_trials = (METAFORAS_DETERMINADAS
-                                + METAFORAS_INDETERMINADAS
-                                + DISTRACTORES)
+            self._exp_trials = det_pool + indet_pool + DISTRACTORES
             random.shuffle(self._exp_trials)
         self._exp_idx = 0
         self._exp_siguiente()
@@ -872,11 +822,12 @@ class ExperimentoMetaforas:
         self.root.unbind("<space>")
         self.lbl("¡Has terminado!\n\nMuchas gracias por tu participación.\nTus datos han sido guardados.",
                  ("Helvetica", 22), rely=0.42)
-        tk.Button(self.frame, text="Salir",
+        btn_salir = tk.Button(self.frame, text="Salir",
                   font=("Helvetica", 14, "bold"),
-                  bg="#e84393", fg="white", relief="flat",
-                  padx=20, pady=8, command=self.root.destroy
-                  ).place(relx=0.5, rely=0.65, anchor="center")
+                  bg="#e84393", fg="white", relief="raised", bd=2,
+                  padx=20, pady=8, command=self.root.destroy)
+        btn_salir.place(relx=0.5, rely=0.65, anchor="center")
+        btn_salir.lift()
 
     # ── Guardado CSV ──────────────────────────────────────────────────
 
@@ -887,7 +838,7 @@ class ExperimentoMetaforas:
         ts  = datetime.now().strftime("%Y%m%d_%H%M%S")
         fn  = os.path.join(data_dir, f"{self.participante_id}_Metaforas_Espaciales_{ts}.csv")
         cols = [
-            "participante", "num_ensayo", "tipo_metafora", "texto_metafora",
+            "participante", "edad", "sexo", "num_ensayo", "tipo_metafora", "texto_metafora",
             "relacion", "sujeto", "objeto", "palabras_presentadas",
             "q_sujeto_participante", "q_objeto_participante",
             "config_valida", "configs_validas",
